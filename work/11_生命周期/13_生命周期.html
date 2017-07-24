@@ -18,9 +18,67 @@ vue对象的生命周期
   * beforeDestory(): 在此做一些收尾的工作: 如清理定时器
   * destoryed()
 -->
+<div id="demo">
+  <p v-show="isShow">bj</p>
+  <button @click="destroyVM">destroy</button>
+  {{xxx}}
+</div>
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
+  new Vue({
+    el:'#demo',
+    data:{
+      isShow:true,
+      xxx:'hello'
+    },
+    methods:{
+      destroyVM(){
+        this.$destroy();
+        this.xxx = 'sh';
+      }
+    },
+    //初始化
+    beforeCreate(){
+      console.log('beforeCreate()',this.xxx);
+    },
+    created(){
+      console.log('created()',this.xxx);
+      //延迟更新
+      /*setTimeout(function () {
+        this.xxx = 'hi';
+      }.bind(this),1000)*/
 
+      setTimeout(() => {
+        this.xxx = 'hi'
+      }, 1000)
+      this.IntervalId = setInterval(()=> {
+        this.show = !this.show;
+      },1000)
+    },
+    beforeMount () {
+      console.log('beforeMount()', this.xxx)
+    },
+    mounted () {
+      console.log('mounted()', this.xxx)
+    },
+    // 更新阶段
+    beforeUpdate () { // 页面中必须使用了xxx
+      console.log('beforeUpdate()', this.xxx)
+    },
+    // 更新界面之后
+    updated () {
+      console.log('updated()', this.xxx)
+    },
+    // 死亡阶段
+    beforeDestroy () {
+      console.log('beforeDestroy')
+      // 清理定时器
+      clearInterval(this.intervalId)
+    },
+    destroyed () {
+      console.log('destroyed')
+    }
+  });
 </script>
 </body>
 </html>

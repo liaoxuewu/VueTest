@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>07_Class与Style绑定</title>
+  <style type="text/css">
+    .classA{
+      background-color: red;
+    }
+    .classB{
+      background-color: yellowgreen;
+    }
+  </style>
 </head>
 <body>
 
@@ -16,10 +24,35 @@
 -->
 
 <div id="demo">
+  <h2>动态绑定class</h2>
+  <p :class="a" :class="classB">:class="a" a是一个data属性</p>
+  <p :class="{classA:isA,classB:isB}">:class="{ 'class-a': isA, 'class-b': isB }"</p>
+  <p :class="['classA','classB']">:class="[classA, classB]"</p>
+  <h2>动态绑定style</h2>
+  <p :style="{color: myColor,fontSize:size+'px'}">
+    :style="{ color: activeColor, fontSize: fontSize + 'px' }"</p>
+  <button @click="update">更新</button>
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
+  new Vue({
+    el:'#demo',
+    data:{
+      a:'classA',
+      isA:true,
+      isB:false,
+      myColor:'yellow',
+      size:20
+    },
+    methods:{
+      update(){
+        this.isB = true;
+        this.myColor = 'pink';
+        this.size = 30
+      }
+    }
+  });
 </script>
 </body>
 </html>

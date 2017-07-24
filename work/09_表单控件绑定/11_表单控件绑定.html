@@ -15,12 +15,62 @@
 3. 自动去除两端空格: .trim
 -->
 <div id="demo">
+  <p>{{msg}}</p>
+  <input type="text" v-model="msg"><br><br>
+  <textarea v-model="msg"></textarea>
+  <hr>
+  <input type="checkbox" id="checkbox" v-model="ok">
+  <label for="checkbox">{{ok}}</label>
+  <hr>
+  <input type="checkbox" id="sj" value="sj" v-model="persons">
+  <label for="sj">sj</label>
+  <input type="checkbox" id="lk" value="lk" v-model="persons">
+  <label for="lk">lk</label>
+  <input type="checkbox" id="lc" value="lc" v-model="persons">
+  <label for="lc">lc</label>
+  <br>
+  <span>checkedNames:{{persons}}</span>
+  <hr>
+  <input type="radio" id="female" value="male" v-model="gender">
+  <label for="female">MALE</label>
+  <br>
+  <input type="radio" id="male" value="female" v-model="gender">
+  <label for="male">FEMALE</label>
+  <br>
+  <span>gender: {{gender}}</span>
+  <hr>
+  <select v-model="cityId">
+    <option value="">未选择</option>
+    <option v-for="city in cities" :value="city.id">{{city.name}}</option>
+  </select>
+  <span>selection:{{cityId}}</span>
+  <hr>
+  <input type="text" placeholder="失去焦点才更新" v-model.lazy="msg2">
+  <p>输入的数据为: {{msg2}}</p>
+  <input type="text" placeholder="自动trim" v-model.trim="msg3">
+  <p>输入的数据为: {{msg3}}</p>
 
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-
+  new Vue({
+    el:'#demo',
+    data:{
+      msg:'hello',
+      ok:true,
+      persons:['sj'],
+      gender:'male',
+      cities:[
+        {id:1,name:'bj'},
+        {id:2,name:'sh'},
+        {id:3,name:'gz'},
+      ],
+      cityId:'2',
+      msg2:'',
+      msg3:''
+    }
+  });
 </script>
 </body>
 </html>
