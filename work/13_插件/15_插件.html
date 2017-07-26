@@ -5,9 +5,24 @@
   <title>13_插件</title>
 </head>
 <body>
-
+<div id="app">
+  <p v-my-directive="msg"></p>
+</div>
 <script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript" src="MyPlugin.js"></script>
 <script type="text/javascript">
+  //声明使用vue插件,内部会执行MyPlugin.install(Vue)
+  Vue.use(MyPlugin);
+  Vue.myGlobalMethod();
+
+  const vm = new Vue({
+    el:'#app',
+    data:{
+      msg:'hello'
+    }
+  });
+
+  vm.$myMethod();
 </script>
 </body>
 </html>
